@@ -1,0 +1,13 @@
+.q {
+    font-weight: 900;
+    font-size: 2rem;
+    color: rgba(255, 0, 0, 0.602);
+}
+.uora {
+    color: rgba(255, 0, 0, 0.602);
+    font-weight: 700
+}
+
+.nav-link {
+    margin: 0 1rem;
+}

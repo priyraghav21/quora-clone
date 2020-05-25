@@ -1,0 +1,41 @@
+<%- include('includes/head.ejs') %>
+<link rel="stylesheet" href="../public/css/body.css">
+<link rel="stylesheet" href="../public/css/head.css">
+   <title>Ask a Question</title>
+   </head>
+<body>
+    
+
+<%- include('includes/nav.ejs') %>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <% if(!message) { %>
+
+            
+            <form action="/askQues" method="POST">
+            <div class="form-group shadow">
+                <label for="question" class="lead">Question</label>
+                <input id="question" class="form-control form-control-lg mb-3" type="text" name="question" placeholder="Ask Your Question: (end your questions with ? )">
+                <button type="submit" class="btn btn-primary form-control btn-lg btn-block">Ask Your Question</button>
+            </div>
+            
+            </form>
+            <% }else { %>
+            
+                
+                .<div class="alert alert-success" role="alert">
+                  <h4 class="alert-heading">Question Added!</h4>
+                  <p><%= message %> <strong> <a href="/" class="alert-link"> Go to Feed</a></strong></p>
+                  <p class="mb-0"></p>
+                </div>
+                
+            
+                <% } %>
+                
+               
+        </div>
+    </div>
+</div>
+<%- include('includes/end.ejs') %>

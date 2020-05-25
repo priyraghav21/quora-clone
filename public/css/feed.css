@@ -1,0 +1,28 @@
+
+
+.thumb {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 1rem;
+   
+}
+.author-name {
+    display: inline-block;
+}
+.author-credentials {
+    display: inline-block;
+    margin-left: 0.5rem;
+}
+
+.card-footer span.active {
+ background-color: #000000;
+ 
+}
+
+
+/* read less and read more fuctionality 
+from https://codepen.io/KondalDurgam/pen/VxyKEg?_
+_cf_chl_jschl_tk__=42f8540bf00f2e55f4c0df82d307b0ddb581eb50-1589946517-0-AfvDtJpDU4HSxsrzForlp4K5NrU-Nw5eEuFz8nzUA7fZVi7Wjduf_nKEusXnGBgLVJyu9ETignj9mKySyK9ZEOVDwhr9jCMmMAylE1i0nZderOWzG5_U5R1e2wYNhcAeoYQxmtPPW9BTUntej7j4PR-oSpDsyUXV2saCw0yEF6pLZLwZl0VN4HHuwS32Np_5UUuEpiqCcohbaNCKw05gF5f54lbl5E6kxDoCix9k8wHVMo-ReALilqNd1IAInz2Jq34XgbfIBtTMswn2qTOfDRjNGEQnWI_VLZ4PheAcYvqPSw7ZDh1qsGPR6afJVgenqO_iqjtv2whwl6Mih9T5lj7p-TBVD_C4tUaKcanoItCR */
+
+  

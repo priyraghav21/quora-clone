@@ -1,0 +1,46 @@
+<%- include('includes/head.ejs') %>
+<link rel="stylesheet" href="../public/css/feed.css">
+<link rel="stylesheet" href="../public/css/head.css">
+<link rel="stylesheet" href="../public//css/body.css">
+    <title>Document</title>
+</head>
+<body>
+<%- include('includes/nav.ejs') %>
+<div class="background">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="media border p-3">
+                    <img src="<%=user.imageUrl%>" alt="<%= user.name %>" class="mr-3 mt-3 rounded" style="width:7rem;height: 7rem;">
+                    <div class="media-body">
+                      <h4><%= user.name%> <small><i>works at random place</i></small></h4>
+                      <%if(loggedIn && !userIsSame && !alreadyFollows){%><a href="/userFollow/<%=user._id%>" class="btn btn-success"><strong>Follow</strong> <i class="fa fa-plus" aria-hidden="true"></i></a><%}%>
+                      <%if(alreadyFollows){%><a href="/userUnfollow/<%=user._id%>" class="btn btn-success"><strong>Unfollow</strong> <i class="fa fa-minus" aria-hidden="true"></i></a><%}%>
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center"><span>Education</span><span></span><a href=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></li>
+                  
+                        <li class="list-group-item d-flex justify-content-between align-items-center"><span>Works At</span><span></span><a href=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center"><span>Languages</span><span></span><a href=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></li>
+                       
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div>
+                    <ul class="list-group list-group-horizontal">
+                       
+                        <li class="list-group-item list-group-item-primary list-group-item-action " ><a href="/user-answers/<%=userId%>" class="nav-link">Answers</a></li>
+                        <li class="list-group-item list-group-item-primary list-group-item-action"><a href="/user-questions/<%=userId%>" class="nav-link">Questions</a></li>
+                        <li class="list-group-item list-group-item-primary list-group-item-action"><a href="/user-followers/<%=userId%>" class="nav-link">Followers</a></li>
+                        <li class="list-group-item list-group-item-primary list-group-item-action"><a href="/user-following/<%=userId%>" class="nav-link">Following</a></li>
+                        
+                      </ul>
+                  </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+  </script>
+    <%- include('includes/end.ejs') %>

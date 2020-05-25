@@ -1,0 +1,43 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="../../public/css/feed.css">
+<link rel="stylesheet" href="../../public/css/head.css">
+<link rel="stylesheet" href="../../public//css/body.css">
+    <title>Document</title>
+</head>
+<body>
+<%- include('../includes/nav.ejs') %>
+<div class="background">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <%if(errorMessage.length>0) { %>
+                    <div class="alert alert-danger" role="alert">
+                        <strong><%= errorMessage %></strong>
+                    </div>
+                <%}%>
+                    <form action="/auth/signup" method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" name="name" id="" class="form-control" placeholder="Your Name" aria-describedby="helpId">
+                            <small id="helpId" class="text-muted"></small>
+                            <label for="name">Profile Picture</label>
+                            <input type="file" name="image" id="image" class="form-control-file border">
+                         
+                          <label for="email">Email</label>
+                          <input type="email" name="email" id="" class="form-control" placeholder="Your Email" aria-describedby="helpId">
+                          <small id="helpId" class="text-muted"></small>
+                          <label for="password">Password</label>
+                          <input type="password" name="password" id="" class="mb-3 form-control" placeholder="Your Password" aria-describedby="helpId">
+                          <small id="helpId" class="text-muted"></small>
+                          <label for="confirmPassword"> Confirm Password</label>
+                          <input type="password" name="confirmPassword" id="" class="mb-3 form-control" placeholder="Confirm Password" aria-describedby="helpId">
+                          <small id="helpId" class="text-muted"></small>
+                          <button class="btn btn-success btn-block" type="submit">Sign up</button>
+                        </div>
+                    </form>
+            </div>
+                
+        </div>
+    </div>
+</div>
+    <%- include('../includes/end.ejs') %>

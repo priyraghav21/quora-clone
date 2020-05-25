@@ -1,0 +1,89 @@
+<%- include('includes/head.ejs') %>
+<link rel="stylesheet" href="../public/css/feed.css">
+<link rel="stylesheet" href="../public/css/head.css">
+<link rel="stylesheet" href="../public//css/body.css">
+    <title>Document</title>
+</head>
+<body>
+<%- include('includes/nav.ejs') %>
+<div class="background">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+              <%  answers.forEach(ans => { %>
+                    <div class="card">
+                        <div class="card-header">answer by <a href="/user/<%=ans.answerer._id%>"><%= ans.answerer.name %></a></div>
+                        <div class="card-body" id="parent">
+                           <h2 class="card-title" style="text-overflow: ellipsis;"><%= ans.question.questionTitle %></h2>
+                           <div class="author-info">
+                               
+                               
+                               <img src=/<%=ans.answerer.imageUrl%> alt="" class=" thumb">
+                               <p class=" author-name lead"><a href="/user/<%=ans.answerer._id%>" class="nav-link m-0 p-0"><%= ans.answerer.name %></a></p>
+                               
+                               <p class="author-credentials text-muted">worked at random place</p>
+                           </div>
+                           <p class="card-content " id="collapseParent" style="white-space: pre-wrap;"><%= ans.answerContent%></p>
+                        </div>
+                       
+                        <div class="card-footer">
+
+                            <% if(loggedIn){ %> 
+                                <input type="hidden" name="ansId" id="ansId" value="<%= ans._id %>">
+                                
+                                <button onclick="upvoted('param',this)" class="btn <%if(ans.hasUpvoted){%>btn-primary<%}%> btn-sm"><span class="badge badge-primary text-light  "   id="upvoter" style="cursor: pointer;"><%if(ans.hasUpvoted){%>Upvoted<%}else{%>Upvote<%}%></span></button>
+                            
+                                 <%} %>
+                            <span id="upvoteCount" class="badge badge-primary badge-pill"><%= ans.upvotes%></span>
+                        </div>
+                    </div>
+               <% }) %>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // const upvoteButton = document.querySelector('#upvoter');
+    // const ansId = document.querySelector('#ansId');
+    // const upvoteCountSpan = document.querySelector('#upvoteCount');
+    function upvoted(event,me) {
+        const current = me;
+        const ansId = current.previousElementSibling.value;
+        const upvoteCountSpan = current.nextElementSibling;
+        console.log(current.classList)
+       
+        
+        
+            const numUpvotes =  +upvoteCountSpan.innerText;
+            
+            
+            const fetchUrl = `http://localhost:1234/upvote/${ansId}`;
+            fetch(fetchUrl,{
+                method:'GET',
+                headers:{
+                    'Content-Type':'application/json'
+                }
+            }).then(data => {
+                return data.json();
+               
+            }).then(result => {
+                if(result.upvoteCount>numUpvotes){
+                    current.classList.add('btn-primary');
+                    current.firstElementChild.innerText = 'Upvoted';
+                }else {
+                    current.classList.remove('btn-primary');
+                    current.firstElementChild.innerText = 'Upvote';
+                }
+                upvoteCountSpan.innerText = result.upvoteCount;
+               
+            }).catch(err => {
+                console.log(err);
+            });
+            
+            
+        
+        
+    }
+</script>
+    <%- include('includes/end.ejs') %>

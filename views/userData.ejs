@@ -1,0 +1,212 @@
+<%- include('includes/head.ejs') %>
+<link rel="stylesheet" href="../public/css/feed.css">
+<link rel="stylesheet" href="../public/css/head.css">
+<link rel="stylesheet" href="../public//css/body.css">
+    <title>Document</title>
+</head>
+<body>
+<%- include('includes/nav.ejs') %>
+<div class="background">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-6">
+                <div class="media border p-3">
+                    <img src="<%=user.imageUrl%>" alt="<%= user.name %>" class="mr-3 mt-3 rounded" style="width:7rem;height: 7rem;">
+                    <div class="media-body">
+                      <h4><%= user.name%> <small><i>works at random place</i></small></h4>
+                      
+                      <%if(loggedIn && !userIsSame && !alreadyFollows){%><a href="/userFollow/<%=user._id%>" class="btn btn-success"><strong>Follow</strong> <i class="fa fa-plus" aria-hidden="true"></i></a><%}%>
+                      <%if(alreadyFollows){%><a href="/userUnfollow/<%=user._id%>" class="btn btn-success"><strong>Unfollow</strong> <i class="fa fa-plus" aria-hidden="true"></i></a><%}%>
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center"><span>Education</span><span></span><a href=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></li>
+                  
+                        <li class="list-group-item d-flex justify-content-between align-items-center"><span>Works At</span><span></span><a href=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center"><span>Languages</span><span></span><a href=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></li>
+                       
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div>
+                    <ul class="list-group list-group-horizontal">
+                       
+                        <li class="list-group-item list-group-item-primary list-group-item-action <%if(answerTab){%>active<%}%>" ><a href="/user-answers/<%=userId%>" class="nav-link text-light">Answers</a></li>
+                        <li class="list-group-item list-group-item-primary list-group-item-action <%if(questionTab){%>active<%}%>"><a href="/user-questions/<%=userId%>" class=" text-light nav-link">Questions</a></li>
+                        <li class="list-group-item list-group-item-primary list-group-item-action <%if(followerTab){%>active<%}%>"><a href="/user-followers/<%=userId%>" class="nav-link text-light">Followers</a></li>
+                        <li class="list-group-item list-group-item-primary list-group-item-action <%if(followingTab){%>active<%}%>"><a href="/user-following/<%=userId%>" class="nav-link text-light">Following</a></li>
+                        
+                      </ul>
+                  </div>
+                
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-md-6">
+                <% if(answers.length>0){ %>
+                   <% answers.forEach(ans => { %>
+
+                    
+                <div class="card mt-3">
+                    
+                    <div class="card-body" id="parent">
+                       <h2 class="card-title" style="text-overflow: ellipsis;"><%=ans.question.questionTitle%></h2>
+                       
+                       <p class="card-content " id="collapseParent" style="white-space: pre-wrap;"><%=ans.answerContent%></p>
+                    </div>
+                   
+                    <div class="card-footer">
+
+                        <% if(loggedIn){ %> 
+                            <input type="hidden" name="ansId" id="ansId" value="<%= ans._id %>">
+                            
+                            <button onclick="upvoted('param',this)" class="btn  btn-sm"><span class="badge badge-primary text-light  "   id="upvoter" style="cursor: pointer;">Upvote</span></button>
+                        
+                             <%} %>
+                        <span id="upvoteCount" class="badge badge-primary badge-pill"><%=ans.upvotes%></span>
+                    </div>
+                </div>
+            <%}) %>
+                <% }else{ %>
+                    <%if(answerTab){%>
+                    <div class="alert alert-info mt-3" role="alert">
+                        <strong>User has no answers yet!</strong>
+                    </div>
+                    <% } %>
+                    <%}%>
+            </div>
+        </div>
+
+
+        <!-- user questions display -->
+
+        <div class="row">
+            <div class="col-lg-8 col-md-6">
+                <% if(questions.length>0){ %>
+                   <% questions.forEach(ques => { %>
+
+                    
+                <div class="card mt-3">
+                    
+                    <div class="card-body" id="parent">
+                       <h2 class="card-title" style="text-overflow: ellipsis;"><a class="nav-link" href="/quesDetails/<%=ques._id%>"><%=ques.questionTitle%></a></h2>
+                       
+                       
+                    </div>
+                   
+                   
+                </div>
+            <%}) %>
+                <% }else{ %>
+                    <%if(questionTab){%>
+                        <div class="alert alert-info mt-3" role="alert">
+                            <strong>User has asked no questions yet!</strong>
+                        </div>
+                        <% } %>
+                    <%}%>
+            </div>
+        </div>
+
+        <!-- following list for the user -->
+
+
+        <div class="row">
+            <div class="col-lg-8 col-md-6">
+                <% if(following.length>0){ %>
+                   <% following.forEach(fwing => { %>
+
+                    
+                <div class="card mt-3">
+                    
+                    <div class="card-body" id="parent">
+                       <h2 class="card-title" style="text-overflow: ellipsis;"><a class="nav-link" href="/user/<%=fwing._id%>"><%=fwing.name%></a></h2>
+                       
+                       
+                    </div>
+                   
+                   
+                </div>
+            <%}) %>
+                <% }else{ %>
+                    <%if(followingTab){%>
+                        <div class="alert alert-info mt-3" role="alert">
+                            <strong>User does not follow anyone!</strong>
+                        </div>
+                        <% } %>
+                    <%}%>
+            </div>
+        </div>
+
+        <!-- user follower list here -->
+
+        <div class="row">
+            <div class="col-lg-8 col-md-6">
+                <% if(followers.length>0){ %>
+                   <% followers.forEach(f => { %>
+
+                    
+                <div class="card mt-3">
+                    
+                    <div class="card-body" id="parent">
+                       <h2 class="card-title" style="text-overflow: ellipsis;"><a class="nav-link" href="/user/<%=f._id%>"><%=f.name%></a></h2>
+                       
+                       
+                    </div>
+                   
+                   
+                </div>
+            <%}) %>
+                <% }else{ %>
+                    <%if(followerTab){%>
+                        <div class="alert alert-info mt-3" role="alert">
+                            <strong>User has no followers!</strong>
+                        </div>
+                        <% } %>
+                    <%}%>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    // const upvoteButton = document.querySelector('#upvoter');
+    // const ansId = document.querySelector('#ansId');
+    // const upvoteCountSpan = document.querySelector('#upvoteCount');
+    function upvoted(event,me) {
+        const current = me;
+        const ansId = current.previousElementSibling.value;
+        const upvoteCountSpan = current.nextElementSibling;
+        console.log(current.classList)
+       
+        
+        
+            const numUpvotes =  +upvoteCountSpan.innerText;
+            
+            
+            const fetchUrl = `http://localhost:1234/upvote/${ansId}`;
+            fetch(fetchUrl,{
+                method:'GET',
+                headers:{
+                    'Content-Type':'application/json'
+                }
+            }).then(data => {
+                return data.json();
+               
+            }).then(result => {
+                if(result.upvoteCount>numUpvotes){
+                    current.classList.add('btn-primary');
+                }else {
+                    current.classList.remove('btn-primary');
+                }
+                upvoteCountSpan.innerText = result.upvoteCount;
+               
+            }).catch(err => {
+                console.log(err);
+            });
+            
+            
+        
+        
+    }
+</script>
+    <%- include('includes/end.ejs') %>

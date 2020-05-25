@@ -1,0 +1,63 @@
+<%- include('includes/head.ejs') %>
+<link rel="stylesheet" href="../public/css/body.css">
+<link rel="stylesheet" href="../public/css/head.css">
+   <title>Your Answer</title>
+   </head>
+<body>
+    
+
+<%- include('includes/nav.ejs') %>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <% if(singleAns) { %>
+                <div class="card mb-3 shadow">
+                    <div class="card-header">
+                        <h2><%= question.questionTitle %></h2>
+                    </div>
+                    <div class="card-body">
+                            <p class="lead">
+                                <%= answer.answerContent %>
+                            </p>
+                    </div>
+                </div>
+
+         <%    }else { %>
+
+                <div class="card shadow">
+                    <div class="card-header"><h2><%= questionDetails.questionTitle %><span class="badge badge-primary badge-pill"><%=questionDetails.answersList.length %></span></h2></div>
+                    <div class="card-body">
+                        <% if(questionDetails.answersList.length>0){ %>
+                        <ul class="list-group">
+                            <% questionDetails.answersList.forEach(ans => { %>
+                                <div class="d-flex align-items-center mt-0">
+                                    <p class=" m-0">Answer by:-</p><a href="" class="d-inline nav-link ml-0 pl-0"><strong><%= ans.answerer.name%></strong></a>
+                                </div>
+                                
+                                <li class=" shadow-sm mb-3 list-group-item list-group-item-action list-group-item-light"><%= ans.answerContent %>
+                                </li>
+
+
+                            <% }) %> 
+                            
+                           
+                          </ul>
+                          <% }else { %>
+                                .<div class="alert alert-danger" role="alert">
+                                    <h4 class="alert-heading">This question has no answers yet!</h4>
+                                    <p><strong><a href="/" class="nav-link">click here to go back to your feed</a></strong></p>
+                                </div>
+
+                            <% } %>
+                    </div>
+                </div>
+
+
+            <% } %>
+                
+               
+        </div>
+    </div>
+</div>
+<%- include('includes/end.ejs') %>

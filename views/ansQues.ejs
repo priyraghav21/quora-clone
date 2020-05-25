@@ -1,0 +1,50 @@
+<%- include('includes/head.ejs') %>
+<link rel="stylesheet" href="../public/css/body.css">
+<link rel="stylesheet" href="../public/css/head.css">
+<title>Ask a Question</title>
+</head>
+
+<body>
+
+
+    <%- include('includes/nav.ejs') %>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <ul class="list-group">
+                  <%  if(questions.length>0){ %>
+                    <% questions.forEach(ques => { %>
+
+                        <li class=" shadow list-group-item list-group-item-action  list-group-item-info mb-3">
+                            Asked by :<a href="/user/<%=ques.asker._id%>" class="nav-link ml-0 pl-0 d-inline"> <%= ques.asker.name %></a>
+                            <h2><a href="/quesDetails/<%= ques._id %>" class="nav-link ml-0 pl-0"><%= ques.questionTitle %></a></h2>
+
+                            
+                            <div class="card">
+                                <a href="/write/<%= ques._id %>" class="card-link">Answer this question <i class="fa fa-pencil-square-o"
+                                        aria-hidden="true"></i></a>
+                            </div>
+                        </li>
+
+                  <%  }) %>
+                       
+                    <% }else { %>
+
+                        <div class="alert alert-warning shadow" role="alert">
+                            <h4 class="alert-heading">No Questions found!</h4>
+                            <a href="/" class="alert-link">Go back to your feed</a>
+                        </div>
+
+
+                    <% } %>
+
+                    
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <%- include('includes/end.ejs') %>
