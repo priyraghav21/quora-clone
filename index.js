@@ -80,7 +80,7 @@ mongoose.connect(MONGO_URI).then(result => {
     console.log('database connected');
     app.listen(port);
     console.log(`listening on ${port}`);
-    console.log('random git test')
+    
 
 }).catch(err => {
     console.log(err);
